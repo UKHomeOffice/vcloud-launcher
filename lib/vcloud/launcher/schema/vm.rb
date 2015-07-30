@@ -16,6 +16,7 @@ module Vcloud
                 name: { type: 'string', required: true },
                 ip_address: { type: 'ip_address', required: false },
                 allocation_mode: { type: 'string', required: false },
+                mac_address: { type: 'string', required: false },
               },
             },
           },
@@ -27,6 +28,10 @@ module Vcloud
               cpu: { type: 'string_or_number', required: false },
               memory: { type: 'string_or_number', required: false },
             },
+          },
+          cdrom: {
+            type: 'string',
+            required: false 
           },
           extra_disks: {
             type: 'array',
