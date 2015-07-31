@@ -54,6 +54,7 @@ describe Vcloud::Launcher::VmOrchestrator do
     expect(vm).to receive(:update_cpu_count).with(2)
     expect(vm).to receive(:update_memory_size_in_mb).with(4096)
     expect(vm).to receive(:add_extra_disks).with(vm_config[:extra_disks])
+    expect(vm).to receive(:insert_cdrom).with(vm_config[:cdrom])
     expect(vm).to receive(:update_metadata).with(vm_config[:metadata])
     expect(Vcloud::Launcher::IndependentDiskOrchestrator).
       to receive(:new).with(vm).and_return(mock_disk_orchestrator)
@@ -78,6 +79,7 @@ describe Vcloud::Launcher::VmOrchestrator do
     expect(vm).to receive(:update_metadata).with(:shutdown => true)
     expect(vm).to receive(:update_name).with('web-app1')
     expect(vm).to receive(:add_extra_disks).with(vm_config[:extra_disks])
+    expect(vm).to receive(:insert_cdrom).with(vm_config[:cdrom])
     expect(vm).to receive(:configure_network_interfaces).with(vm_config[:network_connections])
 
     allow(vm).to receive(:configure_guest_customization_section)
@@ -123,6 +125,7 @@ describe Vcloud::Launcher::VmOrchestrator do
       allow(vm).to receive(:update_cpu_count)
       allow(vm).to receive(:update_memory_size_in_mb)
       allow(vm).to receive(:add_extra_disks)
+      allow(vm).to receive(:insert_cdrom)
       allow(vm).to receive(:update_metadata)
     end
 
@@ -136,8 +139,8 @@ describe Vcloud::Launcher::VmOrchestrator do
         subject.customize(vm_config_without_bootstrap)
       end
 
-      it "skips customization if nothing to customize" do
-        expect(vm).not_to receive(:configure_guest_customization_section)
+      it "uses an empty string as the host preamble" do
+        expect(vm).to receive(:configure_guest_customization_section).with('')
         subject.customize(vm_config_without_bootstrap)
       end
     end
