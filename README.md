@@ -1,5 +1,8 @@
 vCloud Launcher
 ===============
+
+[![Build Status](https://travis-ci.org/UKHomeOffice/vcloud-launcher.svg?branch=master)](https://travis-ci.org/UKHomeOffice/vcloud-launcher)
+
 A tool that takes a YAML or JSON configuration file describing a vDC, and
 provisions the vApps and VMs contained within.
 
